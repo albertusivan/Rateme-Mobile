@@ -1,14 +1,12 @@
 class UserLogin {
-  int? id;
-  String? name;
-  String? email;
-  String? token;
+  final int id;
+  final String name;
+  final String email;
 
-  UserLogin({
-    this.id,
-    this.name,
-    this.email,
-    this.token,
+  const UserLogin({
+    required this.id,
+    required this.name,
+    required this.email,
   });
 
   factory UserLogin.fromJson(Map<String, dynamic> json){
@@ -16,7 +14,6 @@ class UserLogin {
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      token: json['token'],
     );
   }
 }

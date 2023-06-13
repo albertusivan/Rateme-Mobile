@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-
-import '../BottomNav.dart';
 import '../api/ApiService.dart';
-import 'HomeScreen.dart';
-import 'RegisterScreen.dart';
+import 'LoginScreen.dart';
 
-void main() => runApp(const Login());
+void main() => runApp(const Register());
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+class Register extends StatelessWidget {
+  const Register({Key? key}) : super(key: key);
 
   static const String _title = 'Rate Me';
 
@@ -44,8 +40,10 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  var nameInput = TextEditingController();
   var emailInput = TextEditingController();
   var passwordInput = TextEditingController();
+  var confirmPasswordInput = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,15 +63,23 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
-            SizedBox(height: 12),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
-                child: Text('Login',
-                  style: GoogleFonts.montserrat(
-                      fontSize: 24, fontWeight: FontWeight.bold)),
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(fontSize: 20),
+                )),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: nameInput,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Name',
+                ),
+              ),
             ),
-            SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
@@ -85,7 +91,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 obscureText: true,
                 controller: passwordInput,
@@ -95,47 +101,53 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
-            SizedBox(height: 32),
             Container(
-                height: 52,
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                obscureText: true,
+                controller: confirmPasswordInput,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Confirm Password',
+                ),
+              ),
+            ),
+            Container(
+                height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: ElevatedButton(
-                  child: const Text('Login'),
-                  onPressed: ()  {
-                    // var res = await userLogin(emailInput.text, passwordInput.text);
-                    // if(res['error']){
-                    //
-                    // }else{
-                    //   Navigator.of(context).pop();
-                    //   var snackBar = SnackBar(content: Text(res['message']),
-                    //   );
-                    //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => navbar()),
-                    //   );
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => navbar()),
-    );
-                    },
+                  child: Text('Sign Up'),
+                  onPressed: () async {
+                    var res = await userRegister(nameInput.text,emailInput.text,passwordInput.text,confirmPasswordInput.text);
+                    if(res['error']){
+
+                    }else{
+                      Navigator.of(context).pop();
+                      var snackBar = SnackBar(content: Text(res['message']),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.brown, // Background color
                   ),
-                )
-            ),
+                )),
             Row(
               children: <Widget>[
                 const Text('already have account?'),
                 TextButton(
                   child: const Text(
                     'Sign In',
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Register()),
+                      MaterialPageRoute(builder: (context) => Login()),
                     );
                   },
                 )
@@ -146,4 +158,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ));
   }
 }
-

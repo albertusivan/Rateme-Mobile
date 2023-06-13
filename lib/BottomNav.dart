@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rateme/home2.dart';
+
 import 'package:rateme/hm.dart';
+import 'package:rateme/screen/BookmarkScreen.dart';
+import 'package:rateme/screen/HomeScreen.dart';
 
 void main() {
   runApp(const navbar());
@@ -47,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           children: [
             Home(),
-            BookApp()
+            Bookmark()
 
           ],
         ),

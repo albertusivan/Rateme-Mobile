@@ -6,14 +6,13 @@ import 'package:rateme/login.dart';
 import '../api/ApiService.dart';
 import 'DetailCafe.dart';
 import '../model/listCafe.dart';
-import 'LoginScreen.dart';
 
 void main() {
-  runApp(const Home());
+  runApp(const Search());
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Search extends StatelessWidget {
+  const Search({super.key});
 
   // This widget is the root of your application.
   @override
@@ -57,6 +56,7 @@ class MenuItems {
 
 class _HomePageState extends State<HomePage> {
   late Future<List<listCafe>> cafe;
+  var searchInput = TextEditingController();
 
   @override
   void initState() {
@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                     child: TextField(
                       cursorHeight: 20,
                       autofocus: false,
+                      controller: searchInput,
                       decoration: InputDecoration(
                         hintText: "Cari kafe atau restaurant",
                         prefixIcon: Icon(Icons.search),
@@ -108,17 +109,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 12),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text('Rekomendasi',
-                          style: GoogleFonts.montserrat(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
-                    )
-                  ],
                 ),
                 SizedBox(height: 16),
                 Expanded(
@@ -176,7 +166,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (BuildContext context) {
-              return Login();
+              return LoginApp();
             },
           ),
               (_) => false,
